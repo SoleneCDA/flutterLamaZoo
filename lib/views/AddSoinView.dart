@@ -23,6 +23,7 @@ class _AddSoinViewState extends State<AddSoinView> {
   String selectedFrequency = 'Tous les jours';
   TextEditingController descriptionController = TextEditingController();
   String animal = 'Lion';
+  String selectedSoigneur = 'Soigneur1';
 
   String pageTitle = 'Ajouter un soin';
 
@@ -45,7 +46,7 @@ class _AddSoinViewState extends State<AddSoinView> {
           children: [
             Text(
               pageTitle,
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 24),
             ),
           ],
         ),
@@ -54,7 +55,7 @@ class _AddSoinViewState extends State<AddSoinView> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               DateFormat('dd/MM/yyyy').format(DateTime.now()),
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 24),
             ),
           ),
         ],
@@ -229,6 +230,35 @@ class _AddSoinViewState extends State<AddSoinView> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+                labelText: 'Sélectionner un soigneur',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              value: selectedSoigneur,
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    selectedSoigneur = newValue;
+                  });
+                }
+              },
+              items: <String>[
+                'Soigneur1',
+                'Soigneur2',
+                'Soigneur3',
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -238,7 +268,7 @@ class _AddSoinViewState extends State<AddSoinView> {
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   final name = nameController.text;
-                  final duration =
+                  final duree =
                       selectedDateDebut != null && selectedDateFin != null
                           ? selectedDateFin!
                               .difference(selectedDateDebut!)
@@ -251,7 +281,7 @@ class _AddSoinViewState extends State<AddSoinView> {
                   final newSoin = Soin(
                     name: name,
                     date: DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                    duration: duration,
+                    duree: duree,
                     frequency: frequency,
                     description: description,
                     animal: animal,
@@ -261,6 +291,7 @@ class _AddSoinViewState extends State<AddSoinView> {
                     selectedDateFin: selectedDateFin != null
                         ? DateFormat('dd/MM/yyyy').format(selectedDateFin!)
                         : '',
+                    selectedSoigneur: selectedSoigneur,
                   );
 
                   soins.add(newSoin);

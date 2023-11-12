@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lama_zoo_flutter/globals/SoinsList.dart';
 import 'package:lama_zoo_flutter/views/AddsoinView.dart';
 import 'package:lama_zoo_flutter/views/soinDetailPage.dart';
@@ -13,12 +14,31 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
+  String pageTitle = 'Parc Lama Zoo';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Parc Lama Zoo', textAlign: TextAlign.center),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              pageTitle,
+              style: const TextStyle(fontSize: 24),
+            ),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              DateFormat('dd/MM/yyyy').format(DateTime.now()),
+              style: const TextStyle(fontSize: 24),
+            ),
+          ),
+        ],
       ),
       body: ListView.builder(
         //liste des soins contenus dans la liste soins
