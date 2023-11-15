@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lama_zoo_flutter/views/HomePageView.dart';
+import 'package:lama_zoo_flutter/views/IdentificationView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const HomePageView(),
+      home: const IdentificationView(),
     );
   }
 }

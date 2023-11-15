@@ -44,14 +44,10 @@ class SoinDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              pageTitle,
-              style: const TextStyle(fontSize: 24),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          pageTitle,
+          style: const TextStyle(fontSize: 24),
         ),
         actions: [
           Padding(
@@ -79,7 +75,7 @@ class SoinDetailPage extends StatelessWidget {
                     ),
                     const Icon(Icons.arrow_forward),
                     Text(
-                      soin.animal.toUpperCase(),
+                      soin.animal.toUpperCase(), // tout mettre en majuscule
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
@@ -101,16 +97,12 @@ class SoinDetailPage extends StatelessWidget {
                   soin.duree,
                 ),
                 _buildDetailText(
-                  'Fréquence du soin:',
-                  soin.frequency,
+                  'Position:',
+                  soin.position,
                 ),
                 _buildDetailText(
                   'Description du soin:',
                   soin.description,
-                ),
-                _buildDetailText(
-                  'Soigneur:',
-                  soin.selectedSoigneur,
                 ),
               ],
             ),
@@ -180,7 +172,7 @@ class SoinDetailPage extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
-              decoration: TextDecoration.underline,
+              // decoration: TextDecoration.underline,
             ),
           ),
           const SizedBox(width: 8.0),

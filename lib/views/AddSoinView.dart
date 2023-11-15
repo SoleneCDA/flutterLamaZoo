@@ -18,12 +18,16 @@ class _AddSoinViewState extends State<AddSoinView> {
   TextEditingController dateFinController = TextEditingController();
   TextEditingController dateDebutController = TextEditingController();
   TextEditingController dureeController = TextEditingController();
+  //TextEditingController userName = TextEditingController();
+  //TextEditingController userLastName = TextEditingController();
   DateTime? selectedDateDebut;
   DateTime? selectedDateFin;
-  String selectedFrequency = 'Tous les jours';
+  String selectedPosition = 'Box';
   TextEditingController descriptionController = TextEditingController();
   String animal = 'Lion';
-  String selectedSoigneur = 'Soigneur1';
+
+  //String userName;
+  //String userLastName;
 
   String pageTitle = 'Ajouter un soin';
 
@@ -41,14 +45,10 @@ class _AddSoinViewState extends State<AddSoinView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              pageTitle,
-              style: const TextStyle(fontSize: 24),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          pageTitle,
+          style: const TextStyle(fontSize: 24),
         ),
         actions: [
           Padding(
@@ -195,21 +195,22 @@ class _AddSoinViewState extends State<AddSoinView> {
             padding: const EdgeInsets.all(8.0),
             child: DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                labelText: 'Fréquence',
+                labelText: 'Position',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              value: selectedFrequency,
+              value: selectedPosition,
               onChanged: (String? newValue) {
                 setState(() {
-                  selectedFrequency = newValue!;
+                  selectedPosition = newValue!;
                 });
               },
               items: <String>[
-                'Tous les jours',
-                'Une fois par semaine',
-                'Deux fois par semaine',
+                'Box',
+                'Parcelle',
+                'Enclos sur parcelle',
+                'Quarantaine',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -230,35 +231,6 @@ class _AddSoinViewState extends State<AddSoinView> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                labelText: 'Sélectionner un soigneur',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              value: selectedSoigneur,
-              onChanged: (String? newValue) {
-                if (newValue != null) {
-                  setState(() {
-                    selectedSoigneur = newValue;
-                  });
-                }
-              },
-              items: <String>[
-                'Soigneur1',
-                'Soigneur2',
-                'Soigneur3',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -275,23 +247,24 @@ class _AddSoinViewState extends State<AddSoinView> {
                               .inDays
                               .toString()
                           : 'Non disponible';
-                  final frequency = selectedFrequency;
+                  final position = selectedPosition;
                   final description = descriptionController.text;
 
                   final newSoin = Soin(
                     name: name,
                     date: DateFormat('dd/MM/yyyy').format(DateTime.now()),
                     duree: duree,
-                    frequency: frequency,
+                    position: position,
                     description: description,
                     animal: animal,
+                    //userName: userName,
+                    //userLastName: userLastName,
                     selectedDateDebut: selectedDateDebut != null
                         ? DateFormat('dd/MM/yyyy').format(selectedDateDebut!)
                         : '',
                     selectedDateFin: selectedDateFin != null
                         ? DateFormat('dd/MM/yyyy').format(selectedDateFin!)
                         : '',
-                    selectedSoigneur: selectedSoigneur,
                   );
 
                   soins.add(newSoin);

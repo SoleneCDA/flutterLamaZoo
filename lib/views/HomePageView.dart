@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lama_zoo_flutter/globals/SoinsList.dart';
 import 'package:lama_zoo_flutter/views/AddsoinView.dart';
+import 'package:lama_zoo_flutter/views/IdentificationView.dart';
 import 'package:lama_zoo_flutter/views/soinDetailPage.dart';
 
 class HomePageView extends StatefulWidget {
-  const HomePageView({super.key});
+  //final String userName;
+  //final String userLastName;
+  const HomePageView({
+    super.key,
+  });
 
   @override
   State<HomePageView> createState() => _HomePageViewState();
@@ -20,17 +25,31 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              pageTitle,
-              style: const TextStyle(fontSize: 24),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          pageTitle,
+          style: const TextStyle(fontSize: 24),
         ),
         actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.red)),
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const IdentificationView(),
+                  ),
+                );
+              },
+              tooltip: 'Déconnexion',
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -38,35 +57,55 @@ class _HomePageViewState extends State<HomePageView> {
               style: const TextStyle(fontSize: 24),
             ),
           ),
+          //   Padding(
+          //  padding: const EdgeInsets.all(8.0),
+          //  child: Text(
+          //    'Bonjour $userName $userLastName',
+          //    style: const TextStyle(fontSize: 24),
+          //  ),
         ],
       ),
-      body: ListView.builder(
-        //liste des soins contenus dans la liste soins
-        padding: const EdgeInsets.all(8),
-        itemCount: soins.length,
-        itemBuilder: (context, index) {
-          final soin = soins[index];
-          return ListTile(
-            onTap: () {
-              Navigator.push(
-                //permet d'appuyer sur le nom du soin pour voir le détail
-                context,
-                MaterialPageRoute(
-                  // renvoi à la page soinDetailPage
-                  builder: (context) => SoinDetailPage(
-                    soin: soin,
-                  ),
-                ),
-              );
-            },
-            shape: OutlineInputBorder(
-              // bordure pour chaque soin + radius
-              borderRadius: BorderRadius.circular(10),
+      body: Column(
+        children: [
+          const Text(
+            "Bienvenue",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-            title: Text(soin.animal), // ne montre que le nom du soin
-            subtitle: Text(soin.name),
-          );
-        },
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.7,
+            child: ListView.builder(
+              //liste des soins contenus dans la liste soins
+              padding: const EdgeInsets.all(8),
+              itemCount: soins.length,
+              itemBuilder: (context, index) {
+                final soin = soins[index];
+                return ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      //permet d'appuyer sur le nom du soin pour voir le détail
+                      context,
+                      MaterialPageRoute(
+                        // renvoi à la page soinDetailPage
+                        builder: (context) => SoinDetailPage(
+                          soin: soin,
+                        ),
+                      ),
+                    );
+                  },
+                  shape: OutlineInputBorder(
+                    // bordure pour chaque soin + radius
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  title: Text(soin.animal), // ne montre que le nom du soin
+                  subtitle: Text(soin.name),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: SizedBox(
         width: 200,

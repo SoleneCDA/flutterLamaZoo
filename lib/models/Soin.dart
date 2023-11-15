@@ -7,21 +7,23 @@ class Soin {
   String animal;
   String date;
   String duree;
-  String frequency;
+  String position;
   String description;
   String selectedDateDebut;
   String selectedDateFin;
-  String selectedSoigneur;
+  //String userName;
+  //String userLastName;
 
   Soin({
     required this.name,
     required this.date,
     required this.duree,
-    required this.frequency,
+    required this.position,
     required this.description,
     required this.animal,
     required this.selectedDateDebut,
     required this.selectedDateFin,
-    required this.selectedSoigneur,
+    //required this.userName,
+    //required this.userLastName,
   });
 }
